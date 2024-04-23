@@ -37,10 +37,7 @@ public class AppController extends BaseController {
         String appCode = "reportfor\""+PinyinUtil.getPinyin(name,"")+"\"";
 
 
-//        validateNotEmpty(appPackageVO.getCode(), CODE_INVALID_MSG);
-//        validateNotEmpty(appPackageVO.getName(), NAME_INVALID_MSG);
-//        validateCode28(appPackageVO.getCode());
-//        validateChineseLength(appPackageVO.getName(), 50);
+
         validateNotEmpty(appCode, CODE_INVALID_MSG);
         validateNotEmpty(appName, NAME_INVALID_MSG);
         validateCode28(appCode);
@@ -48,11 +45,10 @@ public class AppController extends BaseController {
 
 
         AppPackageModel appPackageModel = new AppPackageModel();
-//        appPackageModel.setCode(appPackageVO.getCode());
-//        appPackageModel.setName(appPackageVO.getName());
+
         appPackageModel.setCode(appCode);
         appPackageModel.setName(appName);
-        appPackageModel.setName_i18n(appPackageVO.getName_i18n());
+        //appPackageModel.setName_i18n(appPackageVO.getName_i18n());
         appPackageModel.setLogoUrlId(appPackageVO.getLogoUrlId());
         appPackageModel.setGroupId(appPackageVO.getGroupId());
         appPackageModel.setAppNameSpace(appPackageVO.getAppNameSpace());
