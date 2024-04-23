@@ -32,6 +32,7 @@ public class AppController extends BaseController {
 
         String name=null;
         String nameSpace=null;
+        String groupId=null;
 
         String appName = name+"的报表";
         String appCode = "reportfor\""+PinyinUtil.getPinyin(name,"")+"\"";
@@ -49,9 +50,9 @@ public class AppController extends BaseController {
         appPackageModel.setCode(appCode);
         appPackageModel.setName(appName);
         //appPackageModel.setName_i18n(appPackageVO.getName_i18n());
-        appPackageModel.setLogoUrlId(appPackageVO.getLogoUrlId());
-        appPackageModel.setGroupId(appPackageVO.getGroupId());
-        appPackageModel.setAppNameSpace(appPackageVO.getAppNameSpace());
+        appPackageModel.setLogoUrlId(null);
+        appPackageModel.setGroupId(groupId);
+        appPackageModel.setAppNameSpace(nameSpace);
         appPackageModel.setAppDescription(appPackageVO.getAppDescription());
 
 
