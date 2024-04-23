@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloudpivot-extensions</artifactId>
+        <groupId>com.authine.cloudpivot</groupId>
+        <!--suppress MavenPropertyInParent -->
+        <version>${rversion}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>${project.packaging}</packaging>
+
+    <artifactId>cloudpivot-extension-debug</artifactId>
+
+    <properties>
+        <project.packaging>jar</project.packaging>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.authine.cloudpivot.foundation</groupId>
+                <artifactId>cloudpivot-foundation-dependencies</artifactId>
+                <version>1.0.13</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.authine.cloudpivot</groupId>
+            <artifactId>web-api-service</artifactId>
+            <version>${cloudpivot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>app.modules</groupId>
+            <artifactId>cloudpivot-extension-template</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>war</id>
+            <properties>
+                <project.packaging>war</project.packaging>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>spring-boot-starter-tomcat</artifactId>
+                            <groupId>org.springframework.boot</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <finalName>api</finalName>
+            </build>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <!-- 处理自行管理的jar包 -->
+            <resource>
+                <directory>${basedir}/lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}\src\main\resources</directory>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}\src\main\resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <finalName>web-api-${cloudpivot.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                    <!-- <includeSystemScope>true</includeSystemScope> -->
+                    <fork>false</fork>
+                    <layout>ZIP</layout>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

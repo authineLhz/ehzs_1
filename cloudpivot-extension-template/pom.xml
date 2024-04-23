@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>cloudpivot-extension-template</artifactId>
+    <groupId>app.modules</groupId>
+    <description>云枢应用扩展包工程模板</description>
+
+    <parent>
+        <artifactId>cloudpivot-extensions</artifactId>
+        <groupId>com.authine.cloudpivot</groupId>
+        <!--suppress MavenPropertyInParent -->
+        <version>${rversion}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+        <!-- 云枢6 平台依赖 -->
+        <!-- 此依赖同时引入云枢engine的相关依赖包 -->
+        <dependency>
+            <groupId>com.authine.cloudpivot.app</groupId>
+            <artifactId>cloudpivot-app-integration-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.authine.cloudpivot.platform</groupId>
+            <artifactId>cloudpivot-platform-integration-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.authine.cloudpivot.foundation</groupId>
+            <artifactId>cloudpivot-foundation-util</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.authine.cloudpivot.foundation</groupId>
+            <artifactId>cloudpivot-foundation-lock-api</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.authine.cloudpivot.foundation</groupId>
+            <artifactId>cloudpivot-engine-component-cache-v2-api</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.authine.cloudpivot.engine</groupId>
+            <artifactId>cloudpivot-engine-open-api</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.3.20</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.3.20</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.authine.cloudpivot.engine</groupId>
+            <artifactId>cloudpivot-engine-model-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.authine.cloudpivot.engine</groupId>
+            <artifactId>cloudpivot-engine-bizbus-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.authine.cloudpivot.pub</groupId>
+            <artifactId>cloudpivot-pub-notify-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.authine.cloudpivot.pub</groupId>
+            <artifactId>cloudpivot-pub-org-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.authine.cloudpivot.engine</groupId>
+            <artifactId>cloudpivot-engine-workflow-spi</artifactId>
+            <version>${cloudpivot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- end 云枢6 平台依赖 -->
+
+        <!-- 引入三方插件的示例，该三方插件会在打包过程中放入common中，详见README.md-->
+        <!-- <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.16.8</version>
+        </dependency> -->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.parent.basedir}/target</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <!--拷贝依赖到common目录-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-lib</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeScope>provided</excludeScope>
+                            <!-- <excludeTransitive>true</excludeTransitive>
+                            <stripVersion>true</stripVersion> -->
+                            <outputDirectory>${project.parent.basedir}/target/common</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>
