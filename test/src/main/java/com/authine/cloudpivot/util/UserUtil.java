@@ -1,4 +1,4 @@
-package app.module.util;
+package com.authine.cloudpivot.util;
 
 import com.authine.cloudpivot.engine.api.model.organization.UserModel;
 import com.authine.cloudpivot.web.api.exception.PortalException;
