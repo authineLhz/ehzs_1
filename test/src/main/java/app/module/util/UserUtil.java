@@ -38,7 +38,7 @@ public class UserUtil {
      */
     public String getAppCodeFromAccount(String account) {
         validateNotEmpty(account, USER_ACCOUNT_EMPTY);
-        return "reportfor\"" + account + "\"";
+        return "report_for_" + account;
     }
 
     /**
