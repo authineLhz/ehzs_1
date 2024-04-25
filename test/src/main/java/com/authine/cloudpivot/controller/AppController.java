@@ -1,4 +1,4 @@
-package app.module.controller;
+package com.authine.cloudpivot.controller;
 
 import cn.hutool.extra.pinyin.PinyinUtil;
 import com.authine.cloudpivot.engine.api.model.application.AppPackageModel;
@@ -18,11 +18,12 @@ import com.authine.cloudpivot.web.api.view.ResponseResult;
 import com.authine.cloudpivot.web.api.view.app.AppPackageVO;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import javax.annotation.PostConstruct;
 
 
 @RestController
 @RequestMapping("/api/appcreate")
+@Slf4j
 public class AppController extends BaseController {
     @Autowired
     EngineService engineService;

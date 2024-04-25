@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.Random;
 
 @Component
 public class UserUtil {
@@ -54,5 +55,16 @@ public class UserUtil {
             throw new PortalException(ResultEnum.ILLEGAL_PARAMETER_ERR.getErrCode(), USER_ACCOUNT_EMPTY);
         }
         return userInfo;
+    }
+    public String getNameSpace(){
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        String[] range = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+
+        for(int i=0;i<4;i++){
+            sb.append(String.valueOf(range[random.nextInt(36)]));
+        }
+        return sb.toString();
+
     }
 }
